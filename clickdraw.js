@@ -7,6 +7,8 @@ var cleared = document.getElementById("clear");
 
 var clearer = function(e){
     e.preventDefault();
+    ctx.closePath();
+    ctx.beginPath();
     ctx.clearRect(0,0,600,600);
 }
 
@@ -21,14 +23,21 @@ var toggler = function(e){
 
 var draw = function(e){
     if(toggle){
+	ctx.lineTo(e.offsetX, e.offsetY)
+	ctx.stroke();
 	ctx.beginPath();
+	ctx.moveTo(e.offsetX, e.offsetY);
 	ctx.fillRect(e.offsetX-10, e.offsetY-10, 20, 20);
 	ctx.fill();
     }
     else{
+	ctx.lineTo(e.offsetX, e.offsetY)//makes line
+	ctx.stroke();//draws line
 	ctx.beginPath();
+	ctx.moveTo(e.offsetX, e.offsetY);
 	ctx.arc(e.offsetX, e.offsetY, 10, 0, 2*Math.PI);
 	ctx.fill();
+	ctx.moveTo(e.offsetX, e.offsetY);//puts it back in center so no tangent
     }
 }
 
